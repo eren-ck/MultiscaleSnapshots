@@ -1,6 +1,6 @@
 # Multiscale Snapshots
 
-Visual Analysis of Temporal Summaries in Dynamic Graphs
+Visual Analysis of Temporal Summaries in Dynamic Graphs - [[Paper]](https://arxiv.org/abs/2008.08282)
 
 <p align="center">
   <img width="800" src="static/teaser.png">
