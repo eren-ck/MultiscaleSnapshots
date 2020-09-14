@@ -1,0 +1,643 @@
+body {
+  line-height: 1;
+  height: 100vh;
+  overflow-y: hidden;
+  border-bottom: 2px solid #dadada;
+  background: #f2f2f2;
+}
+
+#overview {
+  height: 85vh;
+}
+
+.svg-container {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+}
+
+svg{
+  overflow: visible;;
+}
+
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+#spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%) scale(1.5); 
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1.5); 
+  transform: translateX(-50%) translateY(-50%) scale(1.5);
+  background: #ffffff80;
+}
+
+.hide {
+  display: none;
+}
+
+.toolbar {
+  background-color: #e6e6e6;
+  border-bottom: 1px solid #525252;
+  padding-bottom: 2.5px;
+}
+
+.toolbar-border-right {
+  border-right: 1px solid #525252;
+}
+
+.toolbar-border-left {
+  border-left: 1px solid #525252;
+}
+
+.margin-to-buttons {
+  margin-bottom: 5px;
+}
+
+.timeline {
+  fill: #969696;
+  fill-opacity: 0.5;
+  stroke: #525252;
+  stroke-width: 1px;
+  stroke-opacity: 0.4;
+}
+
+.timeline-hover {
+  fill:  #4e79a7;
+}
+.timeline-hover.highlight {
+  fill:  #1f77b4;
+  stroke: #525252;
+  stroke-width: 2px;
+}
+
+.network-hover {
+  fill: #1f77b4;
+  fill-opacity: 0.8;
+  stroke: #525252;
+  stroke-width: 1px;
+  stroke-opacity: 0.8;
+}
+
+.h-indicator{
+  fill:#a5cce4;
+}
+.h-indicator:hover{
+  fill:#5ba3cf;
+}
+
+.h-indicator.active{
+  fill:#1f77b4;
+}
+
+h-indicator.active:hover{
+  fill:#5ba3cf;
+}
+
+#timeline-group text {
+  font: 1em sans-serif;
+  font-weight: bold;
+}
+
+#timeline-hover-group text {
+  fill: #000;
+  filter: url(#svg-text-background);
+}
+
+#tooltip-timeline {
+  display: none;
+  position: absolute;
+  background-color: lightgray;
+  padding: 5px;
+}
+
+
+#tooltip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  padding:10px;
+  pointer-events: none;
+}
+
+.hidden {
+  display: none;
+}
+
+#tooltip p {
+  margin: 0;
+  font-family: Futura;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.context-bar-text{
+  font-size: 0.7em;
+}
+
+.selection {
+  stroke: gray;
+  stroke-width: 3px;
+  stroke-dasharray: 4px;
+  stroke-opacity: 1;
+  fill: grey;
+  fill-opacity: 0.2;
+}
+
+.state {
+  stroke: gray;
+  fill: white;
+}
+
+.level-rect {
+  fill: #f2f2f2;
+  stroke: #9e9e9e;
+  stroke-width: 2px;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+
+.cell-rect {
+  stroke: black;
+  stroke-width: 2.5px;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+
+.cell:hover .cell-rect {
+  stroke: #252525;
+  stroke-width: 4px;
+  stroke-opacity: 1;
+}
+
+.cell-rect.highlight{
+  stroke: #2D4057;
+  stroke-width: 8px;
+  stroke-opacity: 1;
+}
+
+.link {
+  stroke-width: 2px;
+}
+
+.link.faded {
+  stroke-opacity: 0.2;
+  fill-opacity: 0.2;
+}
+
+.link.highlighted {
+  stroke-width: 3px;
+  stroke-opacity: 1;
+  fill-opacity: 1;
+}
+
+.node {
+  cursor: move;
+  fill: #EE811D;
+}
+.node.hovered {
+  fill: #2D4057;
+}
+
+.node.fixed {
+  fill:#2D4057
+}
+
+.node.faded {
+  stroke-opacity: 0.2;
+  fill-opacity: 0.2;
+}
+
+.node.highlighted {
+  stroke-width: 1.5px;
+  stroke-opacity: 1;
+  fill-opacity: 1;
+}
+
+.nodes{
+  stroke: rgb(255, 255, 255);
+  stroke-width: 1.5;
+}
+
+.nodes text {
+  font-family: Futura;
+  font-size: 1.5em;
+  line-height: 20px;
+  fill: #000;
+  filter: url(#svg-text-background);
+  font-weight: bold;
+}
+
+.links text {
+  font: 1em sans-serif;
+  fill: #000;
+  filter: url(#svg-text-background);
+  font-weight: bold;
+}
+
+
+/* Matrix styles  */
+#matrix-group text {
+  font: 1em sans-serif;
+  font-weight: bold;
+  filter: url(#svg-text-background);
+}
+
+.matrix-cell {
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.matrix-cell.faded {
+  stroke-opacity: 0.2 !important;
+  fill-opacity: 0.2 !important;
+}
+
+.matrix-cell.highlighted {
+  stroke-opacity: 1 !important;
+  fill-opacity: 1 !important;
+}
+
+.matrix-row {
+  fill: #f8f9fa;
+  fill-opacity: 0.3;
+  stroke-width: 0.5;
+  stroke: #525252;
+  stroke-opacity: 0.3;
+}
+
+.matrix-row.faded {
+  stroke-opacity: 0.2 !important;
+  fill-opacity: 0.2 !important;
+}
+
+.matrix-row.highlighted {
+  stroke-opacity: 1 !important;
+  fill-opacity: 1 !important;
+  stroke-width: 1;
+  stroke: #000;
+}
+
+.matrix-col {
+  fill: #f8f9fa;
+  fill-opacity: 0.3;
+  stroke-width: 0.5;
+  stroke: #525252;
+  stroke-opacity: 0.3;
+}
+
+.matrix-col.faded {
+  stroke-opacity: 0.2 !important;
+  fill-opacity: 0.2 !important;
+}
+
+.matrix-col.highlighted {
+  stroke-opacity: 1 !important;
+  fill-opacity: 1 !important;
+  stroke-width: 1;
+  stroke: #000;
+}
+
+/* cell buttons */
+.level-unfold-group-rect {
+  fill: #fff;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.level-unfold-group-rect:hover {
+  fill: #f2f2f2;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.cell-buttons rect {
+  fill: #fff;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.cell-button:hover {
+  fill: #f2f2f2;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.add-cell-buttons rect{
+  fill: #fff;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.add-cell-buttons rect:hover{
+  fill: #f2f2f2;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+
+.cell-text{
+  color: #1b1e23;
+  font: 1.2em sans-serif;
+  filter: url(#svg-text-background);
+  font-weight: bold;
+}
+
+.timeline-line {
+  fill: none;
+  stroke-width: 3;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0);
+}
+
+.navbar {
+  padding: 0rem 0rem;
+}
+
+.bootstrap-select {
+  margin-top: 5px;
+}
+
+/* Legend stuff  */
+#svg-network-legend {
+  margin-top: 10px;
+}
+
+.legend {
+  stroke: #000;
+}
+
+.legend-text{
+  font-size: 0.6em;
+}
+
+#graph-metric-legend{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.line-chart-line{
+  fill: none;
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.focus-grid{
+  stroke:lightgray;
+  stroke-width : 1;
+  opacity:0;
+}
+
+.domain{
+  display:none;
+}
+
+#tooltip-line-chart{
+  position: absolute;
+  background-color: #fff;
+  border:solid;
+  border-width: 2px;
+  border-radius : 5px;
+  padding : 5px;
+  display:none;
+}
+
+#tooltip-search-modal{
+  position: absolute;
+  background-color: #fff;
+  border:solid;
+  border-width: 2px;
+  border-radius : 5px;
+  padding : 5px;
+  display:none;
+}
+
+.mouse-line{
+  stroke: rgb(169, 169, 169);
+  stroke-width: 1;
+}
+
+.level-line{
+  fill: none;
+  stroke: #4e79a7;
+  stroke-width : 2;
+  stroke-opacity: 0.6;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+
+.level-text{
+  font-family: Futura;
+  font-size: 1.2em;
+  line-height: 20px;
+  fill: #000;
+  filter: url(#svg-text-background);
+  font-weight: bold;
+}
+
+.level-line-visited{
+  fill: none;
+  stroke: #edc949;
+  stroke-width : 5;
+  stroke-opacity: 1;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+
+.level-line-visualized{
+  fill: none;
+  stroke: #59a14f;
+  stroke-width : 5;
+  stroke-opacity: 1;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+
+.circle-start-end{
+  fill:#3288bd;
+  stroke: #252525;
+  stroke-width: 1px;
+}
+
+.circle-selected{
+  fill: #17becf;
+  stroke: #252525;
+  stroke-width: 1px;
+}
+
+.circle-nearest-neigbors{
+  fill:#f28e2c;
+  stroke: #252525;
+  stroke-width: 1px;
+}
+
+.circle-nearest-neigbors:hover {
+  stroke-width: 4px;
+  opacity: 1;
+
+}
+.circle-nearest-neigbors.highlight {
+  fill: #2D4057;
+  opacity: 1;
+}
+
+@media (min-width: 1400px) {
+  .modal-lg {
+    max-width: 1400px ;
+  }
+}
+
+.mdi::before {
+  font-size: 24px;
+  line-height: 14px;
+}
+
+.btn .mdi::before {
+  position: relative;
+  top: 4px;
+}
+
+.btn-xs .mdi::before {
+  font-size: 18px;
+  top: 3px;
+}
+
+.btn-sm .mdi::before {
+  font-size: 18px;
+  top: 3px;
+}
+
+.dropdown-menu .mdi {
+  width: 18px;
+}
+
+.dropdown-menu .mdi::before {
+  position: relative;
+  top: 4px;
+  left: -8px;
+}
+
+.nav .mdi::before {
+  position: relative;
+  top: 4px;
+}
+
+.navbar .navbar-toggle .mdi::before {
+  position: relative;
+  top: 4px;
+  color: #fff;
+}
+
+.breadcrumb .mdi::before {
+  position: relative;
+  top: 4px;
+}
+
+.breadcrumb a:hover {
+  text-decoration: none;
+}
+
+.breadcrumb a:hover span {
+  text-decoration: underline;
+}
+
+.alert .mdi::before {
+  position: relative;
+  top: 4px;
+  margin-right: 2px;
+}
+
+.input-group-addon .mdi::before {
+  position: relative;
+  top: 3px;
+}
+
+.navbar-brand .mdi::before {
+  position: relative;
+  top: 2px;
+  margin-right: 2px;
+}
+
+.list-group-item .mdi::before {
+  position: relative;
+  top: 3px;
+  left: -3px;
+}
+
+.slider-holder {
+  width: 700px;
+}
+
+.ticks {
+  font: 14px sans-serif;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track {
+  stroke: #bbb;
+  stroke-width: 10px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 50px;
+  cursor: crosshair;
+}
+
+.sel-range {
+  stroke: #4e79a7;
+  stroke-width: 8px;
+}
+
+.handle {
+  fill: #e0f7fa;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
+  cursor: pointer;
+}
+
+.handle:hover {
+  fill: #b2ebf2;
+}
+
+.handle.active {
+  fill: #2D4057;
+}
+
+.carousel-control-next {
+  filter: invert(100%);
+}
+
+.carousel-control-prev {
+  filter: invert(100%);
+}
+
+.carousel-caption {
+  color: #000;
+  position: relative;
+  left: 0;
+  top: 0;
+}

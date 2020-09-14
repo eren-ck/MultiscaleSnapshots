@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Multiscale Snapshots</title>
+  </head>
+  <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex">
+        <div class="p-2 flex-grow-1 bd-highlight">
+          <span class="navbar-brand d-flex align-items-center">
+            Multiscale Snapshots
+          </span>
+        </div>
+        <div class="p-2 bd-highlight">
+          <button
+            class="navbar-toggler collapsed"
+            type="button"
+            data-toggle="modal"
+            data-target="#getting-started-modal"
+          >
+            Getting Started
+            <span class="mdi mdi-help-circle" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row" id="overview">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12 toolbar" id="hierarchy-toolbar">
+              <div class="row">
+                <div class="col-md-1 text-center toolbar-border-right">
+                  <!-- Similarity search -->
+                  <div class="font-weight-bold margin-to-buttons">
+                    Search
+                  </div>
+                  <div class="btn-group flex-wrap">
+                    <button
+                      type="button"
+                      id="button-time"
+                      class="btn btn-sm btn-outline-dark"
+                      data-toggle="modal"
+                      data-target="#time-modal"
+                    >
+                      <i
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Filter time interval"
+                        class="mdi mdi-20px mdi-clock-outline"
+                      ></i>
+                    </button>
+                    <button
+                      type="button"
+                      id="button-similarity-search"
+                      class="btn btn-sm btn-outline-dark"
+                      data-toggle="modal"
+                      data-target="#similarity-search-modal"
+                    >
+                      <i
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Nearest Neighbor Search"
+                        class="mdi mdi-20px mdi-magnify"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-1 text-center toolbar-border-right">
+                  <!-- Add level options -->
+                  <div
+                    class="font-weight-bold margin-to-buttons"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Summary Graphs"
+                  >
+                    Graphs
+                  </div>
+                  <div class="btn-group flex-wrap">
+                    <button
+                      type="button"
+                      id="hierarchy-union-graph"
+                      class="btn btn-sm btn-outline-dark summary-graph"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Union Graph"
+                      graph-type="union"
+                    >
+                      <i class="mdi mdi-20px mdi-set-all"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      id="hierarchy-intersection-graph"
+                      class="btn btn-sm btn-outline-dark summary-graph"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Intersection Graph"
+                      graph-type="intersection"
+                    >
+                      <i class="mdi mdi-20px mdi-set-center"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      id="hierarchy-disjoint-graph"
+                      class="btn btn-sm btn-outline-dark summary-graph"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Disjoint Graph"
+                      graph-type="disjoint"
+                    >
+                      <i class="mdi mdi-20px mdi-set-left-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-2 text-center toolbar-border-right"
+                  data-toggle="tooltip"
+                  data-placement="right"
+                  title="Add and filter nodes"
+                >
+                  <!-- Filter -->
+                  <div class="font-weight-bold">Filter nodes</div>
+                  <select
+                    id="nodes-filter"
+                    class="selectpicker"
+                    multiple
+                    data-actions-box="true"
+                    data-live-search="true"
+                    data-width="70%"
+                    data-size="auto"
+                    data-header="Select displayed objects"
+                  >
+                  </select>
+                  <button
+                    type="button"
+                    id="button-update-data"
+                    class="btn btn-sm btn-outline-dark"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Update the data"
+                  >
+                    <i class="mdi mdi-20px mdi-filter"></i>
+                  </button>
+                </div>
+
+                <div class="col-md-1 text-center toolbar-border-right">
+                  <div class="font-weight-bold margin-to-buttons">
+                    Methods
+                  </div>
+                  <div class="btn-group flex-wrap">
+                    <button
+                      type="button"
+                      id="button-remove-hierarchy"
+                      class="btn btn-sm btn-outline-dark"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Reset hierarchy"
+                    >
+                      <i class="mdi mdi-20px mdi-table-column-remove"></i>
+                    </button>
+                    <button
+                      type="button"
+                      id="button-cluster"
+                      class="btn btn-outline-dark"
+                      data-toggle="button"
+                      aria-pressed="false"
+                      autocomplete="off"
+                    >
+                      <i
+                        class="mdi mdi-20px mdi-google-circles-communities"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Cluster snapshots with more than 100 nodes"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-2 text-center toolbar-border-right"
+                  data-toggle="tooltip"
+                  data-placement="right"
+                  title="Change all visualization"
+                >
+                  <!-- Visualization buttons -->
+                  <div class="font-weight-bold margin-to-buttons">
+                    Visualization
+                  </div>
+                  <div
+                    class="btn-group btn-group-toggle flex-wrap"
+                    id="radio-vis-buttons"
+                    data-toggle="buttons"
+                  >
+                    <label class="btn btn-sm btn-outline-dark active">
+                      <input
+                        type="radio"
+                        name="radio-vis-buttons"
+                        id="vis-graph"
+                        autocomplete="off"
+                        data="graph"
+                        checked
+                      />
+                      <i class="mdi mdi-20px mdi-ray-start-end"></i>
+                    </label>
+                    <label class="btn btn-sm btn-outline-dark">
+                      <input
+                        type="radio"
+                        name="radio-vis-buttons"
+                        id="vis-animation"
+                        autocomplete="off"
+                        data="animation"
+                      />
+                      <i class="mdi mdi-20px mdi-animation-play"></i>
+                    </label>
+                    <label class="btn btn-sm btn-outline-dark">
+                      <input
+                        type="radio"
+                        name="radio-vis-buttons"
+                        id="vis-matrix"
+                        autocomplete="off"
+                        data="matrix"
+                      />
+                      <i class="mdi mdi-20px mdi-checkerboard"></i>
+                    </label>
+                    <label class="btn btn-sm btn-outline-dark">
+                      <input
+                        type="radio"
+                        name="radio-vis-buttons"
+                        id="vis-timeline"
+                        autocomplete="off"
+                        data="timeline"
+                      />
+                      <i class="mdi mdi-20px mdi-chart-line"></i>
+                    </label>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-1 text-center toolbar-border-right"
+                  data-toggle="tooltip"
+                  data-placement="right"
+                  title="Map a graph metric to the color of a cell"
+                >
+                  <!-- Cell coloring -->
+                  <div class="font-weight-bold">Graph Metric</div>
+                  <select
+                    id="graph-metrics"
+                    class="selectpicker show-tick"
+                    data-width="90%"
+                  >
+                    <option title="---" metric="">---</option>
+                    <option title="Size" metric="size">Size</option>
+                    <option title="Nodes" metric="number_of_nodes"
+                      >Number of nodes</option
+                    >
+                    <option title="Edges" metric="number_of_edges"
+                      >Number of edges</option
+                    >
+                    <option title="Density" metric="density">Density</option>
+                    <option title="Transitivity" metric="transitivity"
+                      >Transitivity</option
+                    >
+                    <option
+                      title="Average Clustering"
+                      metric="average_clustering"
+                      >Average Clustering</option
+                    >
+                  </select>
+                </div>
+
+                <div
+                  class="col-md-1 text-center toolbar-border-right"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Display node metrics"
+                >
+                  <!-- Edge weight -->
+                  <div class="font-weight-bold">Nodes</div>
+                  <select
+                    id="nodes-option"
+                    class="selectpicker show-tick"
+                    data-width="90%"
+                  >
+                    <option title="---" metric="">---</option>
+                    <!-- average_neighbor_degree -->
+                    <option title="Degree" metric="degree">Degree</option>
+                    <option title="Clustering" metric="clustering"
+                      >Clustering coefficient</option
+                    >
+                    <option title="Degree centrality" metric="degree_centrality"
+                      >Degree centrality</option
+                    >
+                    <option title="Cluster size" metric="cluster_size"
+                      >Cluster size</option
+                    >
+                  </select>
+                </div>
+
+                <div
+                  class="col-md-1 text-center toolbar-border-right"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Change the ordering of a matrix"
+                >
+                  <!-- Layout -->
+                  <div class="font-weight-bold">Reordering</div>
+                  <select
+                    id="matrix-order"
+                    class="selectpicker show-tick"
+                    data-width="90%"
+                  >
+                    <option title="---" metric="order-id">---</option>
+                    <option title="Number of edges" metric="order-degree"
+                      >Number edges</option
+                    >
+                    <option title="Clustering" metric="clustering"
+                      >Clustering coefficient</option
+                    >
+                    <option title="Degree centrality" metric="degree_centrality"
+                      >Degree centrality</option
+                    >
+                    <option title="Cluster size" metric="cluster_size"
+                      >Cluster size</option
+                    >
+                  </select>
+                </div>
+                <div class="col-md-1 text-center toolbar-border-right">
+                  <!-- Layout -->
+                  <div class="font-weight-bold">Metrics Legend</div>
+                  <div id="graph-metric-legend"></div>
+                </div>
+
+                <div class="col-md-1 text-center toolbar-border">
+                  <!-- Add Settings Option -->
+                  <div class="font-weight-bold margin-to-buttons">Settings</div>
+                  <button
+                    type="button"
+                    id="button-settings"
+                    class="btn btn-sm btn-outline-dark"
+                    data-toggle="modal"
+                    data-target="#settings-modal"
+                  >
+                    <i class="mdi mdi-20px mdi-cog"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" id="hierarchy-vis">
+              <i class="mdi mdi-48px mdi-spin mdi-loading" id="spinner"></i>
+            </div>
+            <div id="tooltip-timeline" class="col-md-1"></div>
+            <div id="tooltip" class="hidden">
+              <p></p>
+            </div>
+            <div id="tooltip-line-chart"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="settings-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="settings-modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="settings-modal-titel">Settings</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="auto-collapse-checkbox"
+                  checked
+                />
+                <label class="form-check-label" for="auto-collapse-checkbox"
+                  >Auto-Collapse</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="collapse-level-input"> Collapse Levels </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  min="2"
+                  max="8"
+                  step="any"
+                  id="collapse-level-input"
+                  value="6"
+                />
+              </div>
+              <div class="form-group">
+                <label for="collapse-cell-input"> Collapse Cells </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  min="2"
+                  max="8"
+                  step="any"
+                  id="collapse-cell-input"
+                  value="6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="similarity-search-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="similarity-search-modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="similarity-search-modal-titel">
+                Nearest-neighbor search
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-2 text-center">
+                  <div class="font-weight-bold margin-to-buttons">
+                    Select Levels
+                  </div>
+                  <select
+                    id="levels-filter"
+                    class="selectpicker"
+                    multiple
+                    data-actions-box="true"
+                    data-live-search="true"
+                    data-width="70%"
+                    data-size="auto"
+                    data-header="Select the levels"
+                  >
+                  </select>
+                </div>
+
+                <div class="col-md-2 text-center">
+                  <label for="k-nearest-neighbor-range"
+                    >K-nearest neighbors</label
+                  >
+                  <span id="valBox">5</span>
+                  <input
+                    type="range"
+                    class="custom-range"
+                    value="5"
+                    min="1"
+                    max="20"
+                    id="k-nearest-neighbor-range"
+                    onchange="document.getElementById('valBox').innerHTML=this.value;"
+                  />
+                </div>
+
+                <div class="col-md-2 toolbar-border-right text-center">
+                  <div class="font-weight-bold margin-to-buttons">
+                    Search
+                  </div>
+                  <div class="btn-group flex-wrap">
+                    <button
+                      type="button"
+                      id="similarity-search-button"
+                      class="btn btn-sm btn-outline-dark"
+                    >
+                      <i
+                        class="mdi mdi-20px mdi-magnify"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Start the similartiy search"
+                      ></i>
+                    </button>
+                    <button
+                      type="button"
+                      id="similarity-update-button"
+                      class="btn btn-sm btn-outline-dark"
+                      data-dismiss="modal"
+                    >
+                      <i
+                        class="mdi mdi-20px mdi-chart-tree"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Update the displayed heirarchy"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-2 text-center">
+                  <div class="font-weight-bold margin-to-buttons">
+                    Order by
+                  </div>
+                  <select
+                    id="query-plot-order"
+                    class="selectpicker show-tick"
+                    data-width="100px"
+                  >
+                    <option title="Level" metric="order-level">Level</option>
+                    <option title="Level visited" metric="order-visited"
+                      >Level visited</option
+                    >
+                    <option title="Level visualized" metric="order-visualized"
+                      >Level visualized</option
+                    >
+                    <option title="Level similarity" metric="order-similarity"
+                      >Level similarity</option
+                    >
+                  </select>
+                </div>
+                <div class="col-md-2 text-center">
+                  <svg width="80" height="80">
+                    <g class="legend" transform="translate(0,0)">
+                      <circle
+                        class="legend-node"
+                        cx="0"
+                        cy="0"
+                        r="8"
+                        style="fill: #59a14f;"
+                      ></circle>
+                      <text
+                        class="legend-text"
+                        x="10"
+                        y="5"
+                        style="fill: rgb(169, 169, 169); font-size: 12px;"
+                      >
+                        Visualized
+                      </text>
+
+                      <circle
+                        class="legend-node"
+                        cx="0"
+                        cy="20"
+                        r="8"
+                        style="fill: #edc949;"
+                      ></circle>
+                      <text
+                        class="legend-text"
+                        x="10"
+                        y="25"
+                        style="fill: rgb(169, 169, 169); font-size: 12px;"
+                      >
+                        Inspected
+                      </text>
+
+                      <circle
+                        class="legend-node"
+                        cx="0"
+                        cy="40"
+                        r="8"
+                        style="fill: #17becf;"
+                      ></circle>
+                      <text
+                        class="legend-text"
+                        x="10"
+                        y="45"
+                        style="fill: rgb(169, 169, 169); font-size: 12px;"
+                      >
+                        Selected
+                      </text>
+                      <circle
+                        class="legend-node"
+                        cx="0"
+                        cy="60"
+                        r="8"
+                        style="fill: #f28e2c;"
+                      ></circle>
+                      <text
+                        class="legend-text"
+                        x="10"
+                        y="65"
+                        style="fill: rgb(169, 169, 169); font-size: 12px;"
+                      >
+                        Nearest Neighbors
+                      </text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-md-12" id="similarity-search-vis"></div>
+                <div id="tooltip-search-modal"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="time-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="time-modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="time-modal-titel">
+                Go to time interval
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group">
+                  <label for="start-time">Start time</label>
+                  <input
+                    type="datetime-local"
+                    id="start-time"
+                    name="start-time"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="end-time">End time</label>
+                  <input type="datetime-local" id="end-time" name="end-time" />
+                </div>
+
+                <button type="submit" id="submit-time" class="btn btn-primary">
+                  Submit
+                </button>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade bd-example-modal-lg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="getting-started-modal"
+        aria-hidden="true"
+        id="getting-started-modal"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="settings-modal-titel">
+                Getting Started
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div
+                id="carousel-getting-started"
+                class="carousel slide"
+                data-ride="carousel"
+                data-interval="false"
+              >
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="/static/Slide1.png" />
+                    <br />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        Overview of our Multiscale Snapshots approach: We (1)
+                        recursively create temporal summaries (snapshots) of
+                        graphs at different temporal scales (time
+                        granularities); (2) We then apply an unsupervised graph
+                        learning method (graph embedding) to learn
+                        low-dimensional representations of snapshots; Then, we
+                        (3) then give an exploratory visualization that
+                        organizes the snapshots of different temporal
+                        granularities in a hierarchy, to provide an overview of
+                        the evolving structural properties, which utilizes the
+                        graph embeddings for analytical tasks (e.g., similarity
+                        search). The approach allows rich interaction with the
+                        temporal and structural aggregates to understand large
+                        time-dependent graphs, for example, to visually analyze
+                        reoccurring temporal states.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide2.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        The main view consists of a toolbar, the stacked
+                        snapshot views (here still empty), and two context bars.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide3.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        The toolbar facilitates the application of automated
+                        analysis methods (e.g., search for time intervals, open
+                        the query interface) and visualizes the summary graphs
+                        of the snapshots (e.g., display union or intersection
+                        graph). The toolbar enables changing the data space
+                        abstraction methods (e.g., filter and cluster nodes) and
+                        adapting visual transformations (e.g., reordering
+                        algorithms for matrix visualization). The two context
+                        bars display additional information during the
+                        horizontal and vertical navigation of the temporal
+                        dimension. The time context bar on the top shows the
+                        visualized intervals.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide4.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        The prototype displays by default the root of the
+                        hierarchy as a supergraph (union graph) using a
+                        node-link diagram visualization. The level context bar
+                        on the right allows to add and remove levels.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide5.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        A snapshot view combines different visual metaphors in a
+                        consistent interface to increase the task coverage and
+                        displays one of the summary graphs (e.g., union graph).
+                        Every view enables users to depict the data using four
+                        kinds of visual metaphors (node-link, adjacency matrix,
+                        animation, and time series of graph metrics). Additinal
+                        meta information is displayed for each snapshot view
+                        which allows to abstrat, select the interval for
+                        Nearest-neighbor search, or remove the view.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide6.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        Each snapshot view can be visually analyzed via zooming,
+                        panning, brushing, and changing the layout in all views
+                        (e.g., reordering of the matrix) to make visual patterns
+                        more apparent. The visual transformations for individual
+                        or all snapshot views can be adjusted by the analyst to
+                        enable the adaption of visual metaphors to the
+                        underlying sequence of graphs, such as switching for
+                        periods of dense sequences of graphs to matrix
+                        visualization.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide7.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        Via the buttons previous and next buttons the next
+                        snapshot views can be displayed and added to the overall
+                        Multiscale Snapshot visualization.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/Slide8.png" />
+                    <div class="carousel-caption text-justify">
+                      <p>
+                        The query interface allows applying specific
+                        k-nearest-neighbor queries to search for similar summary
+                        graphs on all or particular levels of temporal
+                        granularity. The query interface displays each time
+                        dimension of a level and encodes the currently
+                        visualized and already investigated snapshots via color.
+                        The query results are displayed as dots on the timeline,
+                        and the euclidean distance between the underlying graph
+                        embeddings is mapped to the opacity of the dot. The
+                        analyst has to select a subset of the nearest-neighbors,
+                        which are then displayed in the Multiscale Snapshots
+                        visualization.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <a
+                  class="carousel-control-prev"
+                  href="#carousel-getting-started"
+                  role="button"
+                  data-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a
+                  class="carousel-control-next"
+                  href="#carousel-getting-started"
+                  role="button"
+                  data-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="/static/bundle.js"></script>
+</html>

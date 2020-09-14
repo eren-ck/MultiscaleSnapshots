@@ -1,0 +1,10 @@
+Flask==1.1.1
+Flask-Compress==1.4.0
+flask-cors==3.0.8
+intervaltree==3.1.0
+karateclub==0.45.6
+networkx==2.5
+numpy==1.18.1
+pandas==1.0.1
+scikit-learn==0.21.3
+tqdm==4.42.1

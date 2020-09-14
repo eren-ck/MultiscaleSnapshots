@@ -1,0 +1,43 @@
+{
+  "name": "prototype",
+  "version": "0.0.1",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "build": "webpack --config webpack.dev.js",
+    "watch": "webpack --config webpack.dev.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.0.0",
+    "node-sass": "^4.13.1",
+    "npm-update-all": "^1.0.1",
+    "popper.js": "^1.15.0",
+    "prettier": "^1.19.1",
+    "sass-loader": "^7.1.0",
+    "snowpack": "^1.2.0",
+    "style-loader": "^0.23.1",
+    "svg-inline-loader": "^0.8.0",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "@mdi/font": "^3.7.95",
+    "bootstrap": "^4.3.1",
+    "bootstrap-select": "^1.13.10",
+    "d3": "^5.9.2",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.1"
+  }
+}
