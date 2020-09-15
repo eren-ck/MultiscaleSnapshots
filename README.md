@@ -66,5 +66,5 @@ The following dataset is currently used in the prototype [Reddit Hyperlink Netwo
 ---
 
 ## License
-Released under MIT License. See the [LICENSE](LICENSE) file for details.
+Released under GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 The prototype was developed by Eren Cakmak from the [Data Analysis and Visualization Group](https://www.vis.uni-konstanz.de/) at the University Konstanz funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany's Excellence Strategy – EXC 2117 – 422037984 and the European Union’s Horizon 2020 research and innovation programme under grant agreement No 830892.
