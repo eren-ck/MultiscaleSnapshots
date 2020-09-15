@@ -59,9 +59,9 @@ npm run watch
 
 ---
 
-### Datasets
+### Datasets & Graph Embeddings
 
-The following dataset is currently used in the prototype [Reddit Hyperlink Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html).
+The following dataset is currently used in the prototype [Reddit Hyperlink Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html). The graphs were embedded using the [Karate Club](https://github.com/benedekrozemberczki/karateclub) library.
 
 ---
 
